@@ -1,4 +1,4 @@
-import { BaseMap } from "./BaseMap";
+import { BaseMap } from "./openLayers";
 
 function App() {
   return (
