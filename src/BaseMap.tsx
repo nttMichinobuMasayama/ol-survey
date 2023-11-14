@@ -13,8 +13,7 @@ export const BaseMap = () => {
 
   useEffect(() => {
     if (mapRef.current) {
-      // 四角形の特徴を作成
-      const squareFeature = new Feature({
+      const squareFeature1 = new Feature({
         geometry: new Polygon([
           [
             [15090000, 4130000],
@@ -25,9 +24,31 @@ export const BaseMap = () => {
         ]),
       });
 
+      const squareFeature2 = new Feature({
+        geometry: new Polygon([
+          [
+            [15100000, 4130000],
+            [15105000, 4130000],
+            [15105000, 4125000],
+            [15100000, 4125000],
+          ],
+        ]),
+      });
+
+      const squareFeature3 = new Feature({
+        geometry: new Polygon([
+          [
+            [15110000, 4130000],
+            [15115000, 4130000],
+            [15115000, 4125000],
+            [15110000, 4125000],
+          ],
+        ]),
+      });
+
       const vectorLayer = new VectorLayer({
         source: new VectorSource({
-          features: [squareFeature],
+          features: [squareFeature1, squareFeature2, squareFeature3],
         }),
       });
 
