@@ -7,6 +7,7 @@ import VectorSource from "ol/source/Vector";
 import Feature from "ol/Feature";
 import Polygon from "ol/geom/Polygon";
 import OSM from "ol/source/OSM";
+import Translate from "ol/interaction/Translate";
 
 export const BaseMap = () => {
   const mapRef = useRef<HTMLDivElement>(null);
@@ -52,7 +53,7 @@ export const BaseMap = () => {
         }),
       });
 
-      new Map({
+      const map = new Map({
         target: mapRef.current,
         layers: [
           new TileLayer({
@@ -65,6 +66,8 @@ export const BaseMap = () => {
           zoom: 12,
         }),
       });
+
+      map.addInteraction(new Translate());
     }
   }, []);
 
