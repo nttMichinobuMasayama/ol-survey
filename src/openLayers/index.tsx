@@ -50,6 +50,7 @@ export const BaseMap = () => {
 
       const dragBox = new DragBox({
         condition: platformModifierKeyOnly,
+        className: "my-drag-box",
       });
 
       map.addInteraction(select);
@@ -71,5 +72,5 @@ export const BaseMap = () => {
     }
   }, [features]);
 
-  return <div ref={mapRef} style={{ width: "100vw", height: "100vh" }}></div>;
+  return <div ref={mapRef} className="root"></div>;
 };
