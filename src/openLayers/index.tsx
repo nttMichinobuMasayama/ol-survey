@@ -44,6 +44,7 @@ export const BaseMap = () => {
 
       const translate = new Translate({
         features: select.getFeatures(),
+        hitTolerance: 1000,
       });
 
       map.addInteraction(select);
