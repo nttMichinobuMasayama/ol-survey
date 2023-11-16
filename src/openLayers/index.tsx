@@ -6,6 +6,8 @@ import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 import OSM from "ol/source/OSM";
 import Translate from "ol/interaction/Translate";
+import Select from "ol/interaction/Select";
+import { shiftKeyOnly } from "ol/events/condition";
 import { useBaseMap } from "./hooks";
 
 export const BaseMap = () => {
@@ -35,7 +37,17 @@ export const BaseMap = () => {
         }),
       });
 
-      map.addInteraction(new Translate());
+      const select = new Select({
+        layers: [vectorLayer],
+        toggleCondition: shiftKeyOnly,
+      });
+
+      const translate = new Translate({
+        features: select.getFeatures(),
+      });
+
+      map.addInteraction(select);
+      map.addInteraction(translate);
     }
   }, [features]);
 
