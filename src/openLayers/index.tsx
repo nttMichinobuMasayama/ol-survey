@@ -7,7 +7,8 @@ import VectorSource from "ol/source/Vector";
 import OSM from "ol/source/OSM";
 import Translate from "ol/interaction/Translate";
 import Select from "ol/interaction/Select";
-import { shiftKeyOnly } from "ol/events/condition";
+import DragBox from "ol/interaction/DragBox";
+import { shiftKeyOnly, platformModifierKeyOnly } from "ol/events/condition";
 import { useBaseMap } from "./hooks";
 
 export const BaseMap = () => {
@@ -47,8 +48,26 @@ export const BaseMap = () => {
         hitTolerance: 1000,
       });
 
+      const dragBox = new DragBox({
+        condition: platformModifierKeyOnly,
+      });
+
       map.addInteraction(select);
       map.addInteraction(translate);
+      map.addInteraction(dragBox);
+
+      dragBox.on("boxend", () => {
+        const extent = dragBox.getGeometry().getExtent();
+        vectorLayer
+          .getSource()
+          ?.forEachFeatureIntersectingExtent(extent, (feature) => {
+            select.getFeatures().push(feature);
+          });
+      });
+
+      dragBox.on("boxstart", function () {
+        select.getFeatures().clear();
+      });
     }
   }, [features]);
 
