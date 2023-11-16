@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+
 import Map from "ol/Map";
 import View from "ol/View";
 import TileLayer from "ol/layer/Tile";
@@ -11,7 +12,9 @@ import DragBox from "ol/interaction/DragBox";
 import { shiftKeyOnly, platformModifierKeyOnly } from "ol/events/condition";
 import { Polygon } from "ol/geom";
 import { Feature } from "ol";
+
 import { useBaseMap } from "./hooks";
+import "./styles.css";
 
 export const BaseMap = () => {
   const { features } = useBaseMap();
