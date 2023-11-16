@@ -9,6 +9,8 @@ import Translate from "ol/interaction/Translate";
 import Select from "ol/interaction/Select";
 import DragBox from "ol/interaction/DragBox";
 import { shiftKeyOnly, platformModifierKeyOnly } from "ol/events/condition";
+import { Polygon } from "ol/geom";
+import { Feature } from "ol";
 import { useBaseMap } from "./hooks";
 
 export const BaseMap = () => {
@@ -68,6 +70,16 @@ export const BaseMap = () => {
 
       dragBox.on("boxstart", function () {
         select.getFeatures().clear();
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Delete") {
+          const selectedFeatures = select.getFeatures();
+          selectedFeatures.forEach((feature) => {
+            vectorLayer.getSource()?.removeFeature(feature as Feature<Polygon>);
+          });
+          selectedFeatures.clear();
+        }
       });
     }
   }, [features]);
